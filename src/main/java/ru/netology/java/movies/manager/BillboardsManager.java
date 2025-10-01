@@ -4,16 +4,11 @@ public class BillboardsManager {
     private MovieObject[] films = new MovieObject[0];
     private int quantityOfLastMovies;
 
-    public BillboardsManager(int quantityOfLastMovies) {
 
-//        if (quantityOfLastMovies > films.length) {
-//            return;
-//        }
-//        if (quantityOfLastMovies < 0) {
-//            return;
-//        }
+    public BillboardsManager(int quantityOfLastMovies) {
         this.quantityOfLastMovies = quantityOfLastMovies;
     }
+
 
     public BillboardsManager() {
         this.quantityOfLastMovies = 5;
@@ -26,25 +21,26 @@ public class BillboardsManager {
             tmp[i] = films[i];
         }
         tmp[tmp.length - 1] = film;
-        films = tmp;
+        this.films = tmp;
     }
+
 
     public MovieObject[] findAll() {
         return films;
     }
 
+
     public MovieObject[] findLast() {
-        if (quantityOfLastMovies > films.length) {
-            quantityOfLastMovies = films.length;
+        int resaltLength;
+        if (films.length < quantityOfLastMovies) {
+            resaltLength = films.length;
+        } else {
+            resaltLength = quantityOfLastMovies;
         }
-        if (quantityOfLastMovies < 0) {
-            quantityOfLastMovies = 0;
-        }
-        MovieObject[] last = new MovieObject[quantityOfLastMovies];
-        for (int i = 0; i < quantityOfLastMovies; i++) {
+        MovieObject[] last = new MovieObject[resaltLength];
+        for (int i = 0; i < resaltLength; i++) {
             last[i] = films[films.length - 1 - i];
         }
         return last;
-
     }
 }

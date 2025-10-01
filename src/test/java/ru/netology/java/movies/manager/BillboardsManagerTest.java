@@ -13,6 +13,7 @@ public class BillboardsManagerTest {
     MovieObject film6 = new MovieObject("Тролли. Мировой тур", "Мультфильм", "Уолт Дорн", "США", 91, "19 марта");
     MovieObject film7 = new MovieObject("Номер один", "Комедия", "Михаил Расходников", "Россия", 92, "19 марта");
 
+
     @Test
     public void shouldAddNewMovieToTheBillboard() {
         BillboardsManager manager = new BillboardsManager();
@@ -26,12 +27,44 @@ public class BillboardsManagerTest {
         MovieObject[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
-
-
     }
 
+
     @Test
-    public void shouldOutputLastMoviesWithoutQuantity() {
+    public void shouldOutputLastMoviesWithoutQuantityAddedFour() { // Эквивалентные группы / Граничные значения: 4
+        BillboardsManager manager = new BillboardsManager();
+
+        manager.addNewMovie(film1);
+        manager.addNewMovie(film2);
+        manager.addNewMovie(film3);
+        manager.addNewMovie(film4);
+
+        MovieObject[] expected = {film4, film3, film2, film1};
+        MovieObject[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+
+    @Test
+    public void shouldOutputLastMoviesWithoutQuantityAddedFive() { // Эквивалентные группы / Граничные значения: 5
+        BillboardsManager manager = new BillboardsManager();
+
+        manager.addNewMovie(film1);
+        manager.addNewMovie(film2);
+        manager.addNewMovie(film3);
+        manager.addNewMovie(film4);
+        manager.addNewMovie(film5);
+
+        MovieObject[] expected = {film5, film4, film3, film2, film1};
+        MovieObject[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+
+    @Test
+    public void shouldOutputLastMoviesWithoutQuantityAddedSix() { // Эквивалентные группы / Граничные значения: 6
         BillboardsManager manager = new BillboardsManager();
 
         manager.addNewMovie(film1);
@@ -40,33 +73,24 @@ public class BillboardsManagerTest {
         manager.addNewMovie(film4);
         manager.addNewMovie(film5);
         manager.addNewMovie(film6);
-        manager.addNewMovie(film7);
 
-        MovieObject[] expected = {film7, film6, film5, film4, film3};
+        MovieObject[] expected = {film6, film5, film4, film3, film2};
         MovieObject[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
-
     }
+
 
     @Test
-    public void shouldOutputLastMovies() {
-        BillboardsManager manager = new BillboardsManager(3);
+    public void shouldOutputLastMoviesWithoutQuantityNotAdded() { // Эквивалентные группы
+        BillboardsManager manager = new BillboardsManager();
 
-        manager.addNewMovie(film1);
-        manager.addNewMovie(film2);
-        manager.addNewMovie(film3);
-        manager.addNewMovie(film4);
-        manager.addNewMovie(film5);
-        manager.addNewMovie(film6);
-        manager.addNewMovie(film7);
-
-        MovieObject[] expected = {film7, film6, film5};
+        MovieObject[] expected = {};
         MovieObject[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
-
     }
+
 
     @Test
     public void shouldOutputLastMoviesBoundaryValueSix() {
@@ -84,8 +108,8 @@ public class BillboardsManagerTest {
         MovieObject[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
-
     }
+
 
     @Test
     public void shouldOutputLastMoviesBoundaryValueSeven() {
@@ -103,8 +127,8 @@ public class BillboardsManagerTest {
         MovieObject[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
-
     }
+
 
     @Test
     public void shouldOutputLastMoviesBoundaryValueEight() {
@@ -122,63 +146,16 @@ public class BillboardsManagerTest {
         MovieObject[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
-
     }
 
-    @Test
-    public void shouldOutputLastMoviesBoundaryValueOne() {
-        BillboardsManager manager = new BillboardsManager(1); // Эквивалентные группы / Граничные значения: 1
-
-        manager.addNewMovie(film1);
-        manager.addNewMovie(film2);
-        manager.addNewMovie(film3);
-        manager.addNewMovie(film4);
-        manager.addNewMovie(film5);
-        manager.addNewMovie(film6);
-        manager.addNewMovie(film7);
-
-        MovieObject[] expected = {film7};
-        MovieObject[] actual = manager.findLast();
-
-        Assertions.assertArrayEquals(expected, actual);
-
-    }
 
     @Test
-    public void shouldOutputLastMoviesBoundaryValueZero() {
-        BillboardsManager manager = new BillboardsManager(0); // Эквивалентные группы / Граничные значения: 0
-
-        manager.addNewMovie(film1);
-        manager.addNewMovie(film2);
-        manager.addNewMovie(film3);
-        manager.addNewMovie(film4);
-        manager.addNewMovie(film5);
-        manager.addNewMovie(film6);
-        manager.addNewMovie(film7);
+    public void shouldOutputLastThreeMoviesNotAdded() {
+        BillboardsManager manager = new BillboardsManager(3);
 
         MovieObject[] expected = {};
         MovieObject[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
-
-    }
-
-    @Test
-    public void shouldOutputLastMoviesBoundaryValueMinusOne() {
-        BillboardsManager manager = new BillboardsManager(-1); // Эквивалентные группы / Граничные значения: -1
-
-        manager.addNewMovie(film1);
-        manager.addNewMovie(film2);
-        manager.addNewMovie(film3);
-        manager.addNewMovie(film4);
-        manager.addNewMovie(film5);
-        manager.addNewMovie(film6);
-        manager.addNewMovie(film7);
-
-        MovieObject[] expected = {};
-        MovieObject[] actual = manager.findLast();
-
-        Assertions.assertArrayEquals(expected, actual);
-
     }
 }
